@@ -2,7 +2,7 @@ import './pages/index.css';
 import { closePopup, openPopup } from './components/modal.js';
 import { handleProfileFormSubmit, fillInputs } from './components/edit-profile.js';
 import { initialCards } from './components/cards.js';
-import { addNewCard, renderCard, deleteCard, likeCard } from './components/card.js';
+import { renderCard, deleteCard, likeCard } from './components/card.js';
 
 const container = document.querySelector('.places');
 const cardContainer = container.querySelector('.places__list');
@@ -10,14 +10,17 @@ const formEditProfile = document.forms['edit-profile'];
 const formNewCard = document.forms['new-place'];
 const popups = document.querySelectorAll('.popup');
 const popupTypeEdit = document.querySelector('.popup_type_edit');
-const popupTypeAddCard = document.querySelector('.popup_type_new-card');
 const popupImage = document.querySelector('.popup_type_image');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
-const buttonFormNewCard = formNewCard.querySelector('.popup__button');
+const placeNameInput = formNewCard.elements['place-name'];
+const link = formNewCard.elements.link;
+const popupTypeAddCard = document.querySelector('.popup_type_new-card');
 const popupImageContent = popupImage.querySelector('.popup__content');
 const popupImageCaption = popupImageContent.querySelector('.popup__caption');
 const popupImageElement = popupImageContent.querySelector('.popup__image');
+
+
 
 function handleImageClick(cardData) {
   openPopup(popupImage);
@@ -64,3 +67,18 @@ formNewCard.addEventListener('submit', function(evt) {
   addNewCard(evt, deleteCard, likeCard, handleImageClick);
   formNewCard.reset();
 });
+
+
+function addNewCard(evt, handleDeleteCard, handleLikeCard, handleImageClick) {
+  evt.preventDefault();
+
+  const cardData = {
+    name: placeNameInput.value,
+    link: link.value,
+  };
+
+  const newCardElement = renderCard(cardData, handleDeleteCard, handleLikeCard, handleImageClick);
+
+  cardContainer.prepend(newCardElement);
+  closePopup(popupTypeAddCard);
+}

@@ -1,25 +1,4 @@
-import { closePopup } from './modal.js';
-
-const formNewCard = document.forms['new-place'];
-const placeNameInput = formNewCard.elements['place-name'];
-const link = formNewCard.elements.link;
-const cardContainer = document.querySelector('.places__list');
 const cardTemplate = document.querySelector('#card-template').content;
-const popupTypeAddCard = document.querySelector('.popup_type_new-card');
-
-function addNewCard(evt, handleDeleteCard, handleLikeCard, handleImageClick) {
-  evt.preventDefault();
-
-  const cardData = {
-    name: placeNameInput.value,
-    link: link.value,
-  };
-
-  const newCardElement = renderCard(cardData, handleDeleteCard, handleLikeCard, handleImageClick);
-
-  cardContainer.prepend(newCardElement);
-  closePopup(popupTypeAddCard);
-}
 
 function renderCard(initialCard, handleDeleteCard, handleLikeCard, handleImageClick) {
   const renderedCardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -55,4 +34,4 @@ function likeCard(evt) {
   evt.target.classList.toggle('card__like-button_is-active');
 }
 
-export { addNewCard, renderCard, deleteCard, likeCard };
+export { renderCard, deleteCard, likeCard };
