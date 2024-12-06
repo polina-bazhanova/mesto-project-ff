@@ -10,8 +10,16 @@ const getUserInfo = () => {
   return fetch(`${apiConfig.baseUrl}users/me`, {
     method: 'GET',
     headers: apiConfig.headers,
-  }).then(resp => resp.json())
-}
+  }).then(resp => {
+    if (resp.ok) {
+      return resp.json()
+    }
+    return Promise.reject(`Ошибка: ${resp.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    }); 
+  }
 
 const editUserInfo = (name, about) => {
   return fetch(`${apiConfig.baseUrl}users/me`, {
@@ -21,8 +29,16 @@ const editUserInfo = (name, about) => {
       name: name,
       about: about
     })
-  }).then(resp => resp.json())
-}
+  }).then(resp => {
+    if (resp.ok) {
+      return resp.json()
+    }
+    return Promise.reject(`Ошибка: ${resp.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
 const editUserAvatar = (link) => {
   return fetch(`${apiConfig.baseUrl}users/me/avatar`, {
@@ -31,15 +47,31 @@ const editUserAvatar = (link) => {
     body: JSON.stringify({
       avatar: link,
     })
-  }).then(resp => resp.json())
-}
+  }).then(resp => {
+    if (resp.ok) {
+      return  resp.json()
+    }
+    return Promise.reject(`Ошибка: ${resp.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
 const getCards = () => {
   return fetch(`${apiConfig.baseUrl}cards`, {
     method: 'GET',
     headers: apiConfig.headers,
-  }).then(resp => resp.json())
-}
+  }).then(resp => {
+    if (resp.ok) {
+      return resp.json()
+    }
+    return Promise.reject(`Ошибка: ${resp.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
 const addNewCard = (name, link) => {
   return fetch(`${apiConfig.baseUrl}cards`, {
@@ -49,22 +81,46 @@ const addNewCard = (name, link) => {
       name: name,
       link: link
     })
-  }).then(resp => resp.json())
-}
+  }).then(resp => {
+    if (resp.ok) {
+      return resp.json()
+    }
+    return Promise.reject(`Ошибка: ${resp.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
 const deleteCard = (id) => {
   return fetch(`${apiConfig.baseUrl}cards/${id}`, {
     method: 'DELETE',
     headers: apiConfig.headers,
-  }).then(resp => resp.json())
-}
+  }).then(resp => {
+    if (resp.ok) {
+      return resp.json()
+    }
+    return Promise.reject(`Ошибка: ${resp.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
 const likeCard = (id, isLiked) => {
   return fetch(`${apiConfig.baseUrl}cards/likes/${id}`, {
     method: isLiked? 'DELETE': 'PUT',
     headers: apiConfig.headers,
-  }).then(resp => resp.json())
-}
+  }).then(resp => {
+    if (resp.ok) {
+      return resp.json()
+    }
+    return Promise.reject(`Ошибка: ${resp.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
 export { getUserInfo, getCards, editUserInfo, addNewCard, deleteCard, likeCard, editUserAvatar };
 

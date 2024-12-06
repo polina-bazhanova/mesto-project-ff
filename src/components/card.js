@@ -42,7 +42,10 @@ const renderCard = (initialCard, userID, handleDeleteCard, handleLikeCard, handl
 const removeCard = (cardElement, id) => {
   deleteCard(id).then(data => {
     cardElement.remove();
-  });  
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 };
 
 const toggleLikeButton  = (button, id, countElement) => {
@@ -51,7 +54,9 @@ const toggleLikeButton  = (button, id, countElement) => {
     button.classList.toggle('card__like-button_is-active');
     countElement.textContent = cardData.likes.length;
   })
-  
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 export { renderCard, removeCard, toggleLikeButton };

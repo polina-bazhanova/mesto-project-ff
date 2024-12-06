@@ -67,8 +67,10 @@ Promise.all(promises)
     cards.forEach((card) => {
     const initialCardElement = renderCard(card, myID, removeCard, toggleLikeButton, handleImageClick);
     appendCard(initialCardElement);
+    })
   })
-});
+  .catch(handleFormError)
+
 
 function fillInputs() {
   nameInput.value = profileTitle.textContent;
@@ -125,6 +127,7 @@ function handleAddNewCardFormSubmit(evt, handleDeleteCard, handleLikeCard, handl
     const newCardElement = renderCard(newCard, myID, handleDeleteCard, handleLikeCard, handleImageClick);
     
     cardContainer.prepend(newCardElement);
+    formNewCard.reset();
     closePopup(popupTypeAddCard);
   })
   .catch(handleFormError)
@@ -172,7 +175,6 @@ formEditProfile.addEventListener('submit', handleEditProfileFormSubmit);
 
 formNewCard.addEventListener('submit', function(evt) {
   handleAddNewCardFormSubmit(evt, removeCard, toggleLikeButton, handleImageClick);
-  formNewCard.reset();
 });
 
 formEditAvatar.addEventListener('submit', handleEditAvatarFormSubmit);
